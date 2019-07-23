@@ -1,3 +1,77 @@
-# JavaScript
-JavaScript exercises
-ggg
+<!Doctype html>
+
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Lista Tarefas</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-static-top">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+    </nav>
+
+    <div class="content">
+
+        <input type="text" id="txtTask" style="margin-left: 40px ;margin-bottom: 40px;">
+
+        <button id="btn" class="btn btn-success">Add Task</button>
+
+        <div class="card" style="width: 90rem;margin-left: 40px">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">1 hour Javascript </li>
+                <li class="list-group-item">1 hour Node </li>
+                <li class="list-group-item">Watch Black Mirror</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    (function () {
+        "use strict";
+        var $txtTask = document.querySelector("#txtTask");
+        var $btn = document.querySelector("#btn");
+        var $ul = document.querySelector(".content ul");
+        var $lis = $ul.querySelectorAll(".content ul li");
+
+        $btn.addEventListener("click", addTask);
+        $txtTask.addEventListener("keyup", function (e) {
+            if (e.keyCode === 13) {
+                addTask();
+            }
+        });
+
+        $ul.addEventListener("click", function (e) {
+            if (e.target.nodeName === "LI") {
+                removeTask(e.target);
+            }
+        })
+
+        function removeTask(li) {
+            if (confirm("Deseja realmente excluir a tarefa \n" + li.textContent + "?")) {
+                console.log(li.parentNode);
+                li.parentNode.removeChild(li);
+
+            }
+        }
+        function addTask() {
+            var li = document.createElement("li");
+            var text = document.createTextNode($txtTask.value);
+            li.appendChild(text);
+            $ul.appendChild(li);
+            li.classList.add("list-group-item")
+            $txtTask.value = '';
+            $txtTask.focus();
+        }
+
+    })()
+
+</script>
+
+</html>
